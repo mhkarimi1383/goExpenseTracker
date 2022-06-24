@@ -34,7 +34,7 @@ func init() {
 		ClientSecret: cfg.OpenIDClientSecret,
 		Endpoint:     provider.Endpoint(),
 		RedirectURL:  cfg.BaseURL + "/auth/openid/callback",
-		Scopes:       []string{oidc.ScopeOpenID, "email"},
+		Scopes:       []string{oidc.ScopeOpenID, "profile", "email"},
 	}
 }
 
