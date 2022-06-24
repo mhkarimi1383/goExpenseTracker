@@ -13,7 +13,7 @@ import (
 
 func index(w http.ResponseWriter, r *http.Request) {
 	usernameCookie, err := r.Cookie("username")
-	if err != nil {
+	if err != nil || usernameCookie == nil {
 		http.Redirect(w, r, "/login", http.StatusFound)
 	}
 	username := usernameCookie.Value
