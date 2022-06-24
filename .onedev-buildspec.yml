@@ -1,7 +1,7 @@
 version: 16
 jobs:
 - name: build
-  jobExecutor: Server Shell Executor
+  jobExecutor: karimi-hub
   steps:
   - !CheckoutStep
     name: Checkout
@@ -11,7 +11,8 @@ jobs:
     condition: ALWAYS
   - !CommandStep
     name: build and start
-    runInContainer: false
+    runInContainer: true
+    image: docker/compose
     interpreter: !ShellInterpreter
       shell: bash
       commands:
