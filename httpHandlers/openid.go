@@ -72,8 +72,6 @@ func callback(w http.ResponseWriter, r *http.Request) {
 		responseWriter(w, &resp, http.StatusInternalServerError)
 		return
 	}
-	logger.Infof(false, "token: %+v", oauth2Token)
-	setCallbackCookie(w, r, "access_token", oauth2Token.AccessToken)
 	data, err := ExtractTokenData(oauth2Token.AccessToken)
 	if err != nil {
 		logger.Warnf(true, "failed to extract token: %v", err)
