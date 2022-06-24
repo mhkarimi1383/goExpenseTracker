@@ -1,6 +1,7 @@
 version: 16
 jobs:
 - name: build
+  jobExecutor: server
   steps:
   - !CheckoutStep
     name: Checkout
@@ -11,10 +12,12 @@ jobs:
   - !CommandStep
     name: build and start
     runInContainer: false
-    interpreter: !DefaultInterpreter
+    interpreter: !ShellInterpreter
+      shell: bash
       commands:
       - docker-compose build
       - docker-compose up -d
+      - docker-compose ps
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
