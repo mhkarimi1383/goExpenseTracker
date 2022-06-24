@@ -14,7 +14,7 @@ jobs:
     runInContainer: true
     image: docker/compose
     interpreter: !ShellInterpreter
-      shell: bash
+      shell: sh
       commands:
       - docker-compose build
       - docker-compose up -d
