@@ -73,7 +73,7 @@ func callback(w http.ResponseWriter, r *http.Request) {
 		responseWriter(w, &resp, http.StatusInternalServerError)
 		return
 	}
-
+	logger.Infof(false, "token: %+v", oauth2Token)
 	userInfo, err := provider.UserInfo(ctx, oauth2.StaticTokenSource(oauth2Token))
 	if err != nil {
 		logger.Warnf(true, "failed to get user info: %v", err)
