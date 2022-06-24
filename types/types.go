@@ -11,8 +11,8 @@ type Configuration struct {
 	ApplicationDescription string `env:"APPLICATION_DESCRIPTION" env-default:"goExpenseTracker" yaml:"application_description"`
 	MongoDBConnectionURI   string `env:"MONGODB_CONNECTION_URI" env-default:"" yaml:"mongodb_connection_uri"`
 	OpenIDAddress          string `env:"OPENID_ADDRESS" yaml:"openid_address"`
-	OpenIDClientSecret     string `env:"OPENID_Client_SECRET" yaml:"openid_client_secret"`
-	OpenIDClientID         string `env:"OPENID_Client_ID" yaml:"openid_client_id"`
+	OpenIDClientSecret     string `env:"OPENID_CLIENT_SECRET" yaml:"openid_client_secret"`
+	OpenIDClientID         string `env:"OPENID_CLIENT_ID" yaml:"openid_client_id"`
 	BaseURL                string `env:"BASE_URL" yaml:"base_url" env-default:"http://127.0.0.1:8080"`
 }
 
