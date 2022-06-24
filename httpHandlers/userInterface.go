@@ -15,6 +15,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 	usernameCookie, err := r.Cookie("username")
 	if err != nil || usernameCookie == nil {
 		http.Redirect(w, r, "/login", http.StatusFound)
+		return
 	}
 	username := usernameCookie.Value
 	t, err := template.ParseFiles("templates/index.html.gotmpl")
@@ -28,6 +29,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 		logger.Warnf(true, "error while getting items from database: %v", err)
 		resp := http.StatusText(http.StatusInternalServerError)
 		responseWriter(w, &resp, http.StatusInternalServerError)
+		return
 	}
 	amount := uint(0)
 	lastId := uint(0)
@@ -57,6 +59,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 				logger.Warnf(true, "Error converting amount to number: %v", err)
 				resp := http.StatusText(http.StatusBadRequest)
 				responseWriter(w, &resp, http.StatusBadRequest)
+				return
 			}
 			description := r.FormValue("description")
 			operatorStr := r.FormValue("operator")
@@ -71,6 +74,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 				logger.Warnf(true, "error creating new item: %v", err)
 				resp := http.StatusText(http.StatusInternalServerError)
 				responseWriter(w, &resp, http.StatusInternalServerError)
+				return
 			}
 			http.Redirect(w, r, "/", http.StatusFound)
 			return
@@ -80,9 +84,11 @@ func index(w http.ResponseWriter, r *http.Request) {
 				logger.Warnf(true, "error while removing item: %v", err)
 				resp := http.StatusText(http.StatusInternalServerError)
 				responseWriter(w, &resp, http.StatusInternalServerError)
+				return
 			}
 			database.DeleteItem(username, uint(id))
 			http.Redirect(w, r, "/", http.StatusFound)
+			return
 		}
 	}
 }
