@@ -11,6 +11,7 @@ import (
 	"reflect"
 	"time"
 
+	"github.com/golang-jwt/jwt"
 	"github.com/mhkarimi1383/goExpenseTracker/types"
 )
 
@@ -57,4 +58,23 @@ func setCallbackCookie(w http.ResponseWriter, r *http.Request, name, value strin
 		HttpOnly: true,
 	}
 	http.SetCookie(w, c)
+}
+
+func ExtractTokenData(tokenString string) (map[string]any, error) {
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (any, error) {
+		// Don't forget to validate the alg is what you expect:
+		if _, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+		}
+		return nil, nil
+	})
+	claims, ok := token.Claims.(jwt.MapClaims)
+	//ok && token.Valid
+	isValid := ok
+
+	if isValid {
+		return claims, nil
+	} else {
+		return nil, err
+	}
 }

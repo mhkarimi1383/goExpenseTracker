@@ -2,7 +2,6 @@ package httpHandlers
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -74,24 +73,17 @@ func callback(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	logger.Infof(false, "token: %+v", oauth2Token)
-	userInfo, err := provider.UserInfo(ctx, oauth2.StaticTokenSource(oauth2Token))
+	setCallbackCookie(w, r, "access_token", oauth2Token.AccessToken)
+	data, err := ExtractTokenData(oauth2Token.AccessToken)
 	if err != nil {
-		logger.Warnf(true, "failed to get user info: %v", err)
-		resp := http.StatusText(http.StatusInternalServerError) + ": " + "failed to exchange with provider"
+		logger.Warnf(true, "failed to extract token: %v", err)
+		resp := http.StatusText(http.StatusInternalServerError)
 		responseWriter(w, &resp, http.StatusInternalServerError)
 		return
 	}
-
-	resp := struct {
-		OAuth2Token *oauth2.Token
-		UserInfo    *oidc.UserInfo
-	}{oauth2Token, userInfo}
-	data, err := json.MarshalIndent(resp, "", "    ")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	w.Write(data)
+	fmt.Printf("data: %+v\n", data)
+	setCallbackCookie(w, r, "username", fmt.Sprintf("%v", data["preferred_username"]))
+	http.Redirect(w, r, "/", http.StatusFound)
 }
 
 func callbackHandler() http.Handler {

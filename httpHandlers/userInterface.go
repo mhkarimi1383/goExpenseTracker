@@ -12,13 +12,18 @@ import (
 )
 
 func index(w http.ResponseWriter, r *http.Request) {
+	usernameCookie, err := r.Cookie("username")
+	if err != nil {
+		http.Redirect(w, r, "/login", http.StatusFound)
+	}
+	username := usernameCookie.Value
 	t, err := template.ParseFiles("templates/index.html.gotmpl")
 	if err != nil {
 		logger.Warnf(true, "error while parsing template: %v", err)
 		resp := http.StatusText(http.StatusInternalServerError)
 		responseWriter(w, &resp, http.StatusInternalServerError)
 	}
-	list, err := database.ListItems("karimi")
+	list, err := database.ListItems(username)
 	if err != nil {
 		logger.Warnf(true, "error while getting items from database: %v", err)
 		resp := http.StatusText(http.StatusInternalServerError)
@@ -56,7 +61,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 			description := r.FormValue("description")
 			operatorStr := r.FormValue("operator")
 			operator := operatorCheckboxTranslator(operatorStr)
-			_, err = database.InsertItem("karimi", types.Item{
+			_, err = database.InsertItem(username, types.Item{
 				Description: description,
 				Operator:    operator,
 				Amount:      uint(amount),
@@ -76,7 +81,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 				resp := http.StatusText(http.StatusInternalServerError)
 				responseWriter(w, &resp, http.StatusInternalServerError)
 			}
-			database.DeleteItem("karimi", uint(id))
+			database.DeleteItem(username, uint(id))
 			http.Redirect(w, r, "/", http.StatusFound)
 		}
 	}
