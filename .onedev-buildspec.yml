@@ -1,7 +1,7 @@
 version: 16
 jobs:
 - name: build
-  jobExecutor: server
+  jobExecutor: Server Shell Executor
   steps:
   - !CheckoutStep
     name: Checkout
