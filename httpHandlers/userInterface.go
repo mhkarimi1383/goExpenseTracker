@@ -1,12 +1,12 @@
 package httpHandlers
 
 import (
+	"encoding/json"
 	"net/http"
 	"strconv"
 	"text/template"
 
 	"github.com/mhkarimi1383/goExpenseTracker/database"
-	_ "github.com/mhkarimi1383/goExpenseTracker/database"
 	"github.com/mhkarimi1383/goExpenseTracker/logger"
 	"github.com/mhkarimi1383/goExpenseTracker/types"
 )
@@ -21,12 +21,21 @@ func index(w http.ResponseWriter, r *http.Request) {
 			logger.Infof(false, "%v: %v", name, value)
 		}
 	}
-	usernameCookie, err := r.Cookie("username")
+	userDataCookie, err := r.Cookie("user_data")
 	if err != nil {
 		http.Redirect(w, r, "/login", http.StatusFound)
 		return
 	}
-	username := usernameCookie.Value
+	userDataJson := userDataCookie.Value
+	userData := make(map[string]string)
+	err = json.Unmarshal([]byte(userDataJson), &userData)
+	if err != nil {
+		logger.Warnf(true, "error while opening cookie: %v", err)
+		resp := http.StatusText(http.StatusInternalServerError)
+		responseWriter(w, &resp, http.StatusInternalServerError)
+		return
+	}
+	username := userData["preferred_username"]
 	t, err := template.ParseFiles("templates/index.html.gotmpl")
 	if err != nil {
 		logger.Warnf(true, "error while parsing template: %v", err)

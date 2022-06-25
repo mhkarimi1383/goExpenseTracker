@@ -2,6 +2,7 @@ package httpHandlers
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -80,7 +81,14 @@ func callback(w http.ResponseWriter, r *http.Request) {
 		responseWriter(w, &resp, http.StatusInternalServerError)
 		return
 	}
-	setCallbackCookie(w, r, "username", fmt.Sprintf("%v", data["preferred_username"]))
+	userData, err := json.Marshal(data)
+	if err != nil {
+		logger.Warnf(true, "failed to generate user data cookie: %v", err)
+		resp = http.StatusText(http.StatusInternalServerError)
+		responseWriter(w, &resp, http.StatusInternalServerError)
+		return
+	}
+	setCallbackCookie(w, r, "user_data", string(userData))
 	http.Redirect(w, r, "/", http.StatusFound)
 }
 
