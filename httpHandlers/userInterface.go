@@ -2,6 +2,7 @@ package httpHandlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
 	"text/template"
@@ -41,7 +42,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 		responseWriter(w, &resp, http.StatusInternalServerError)
 		return
 	}
-	username := userData["preferred_username"]
+	username := fmt.Sprintf("%v", userData["preferred_username"])
 	t, err := template.ParseFiles("templates/index.html.gotmpl")
 	if err != nil {
 		logger.Warnf(true, "error while parsing template: %v", err)
