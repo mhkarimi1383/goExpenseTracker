@@ -80,3 +80,15 @@ func ExtractTokenData(tokenString string) (map[string]any, error) {
 		return nil, err
 	}
 }
+
+func base64Encode(str string) string {
+	return base64.StdEncoding.EncodeToString([]byte(str))
+}
+
+func base64Decode(str string) (string, error) {
+	data, err := base64.StdEncoding.DecodeString(str)
+	if err != nil {
+		return "", err
+	}
+	return string(data), nil
+}

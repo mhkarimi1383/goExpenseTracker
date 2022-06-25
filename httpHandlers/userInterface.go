@@ -26,8 +26,14 @@ func index(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/login", http.StatusFound)
 		return
 	}
-	userDataJson := userDataCookie.Value
-	userData := make(map[string]string)
+	userDataJson, err := base64Decode(userDataCookie.Value)
+	if err != nil {
+		logger.Warnf(true, "error while decoding cookie: %v", err)
+		resp := http.StatusText(http.StatusInternalServerError)
+		responseWriter(w, &resp, http.StatusInternalServerError)
+		return
+	}
+	userData := make(map[string]any)
 	err = json.Unmarshal([]byte(userDataJson), &userData)
 	if err != nil {
 		logger.Warnf(true, "error while opening cookie: %v", err)

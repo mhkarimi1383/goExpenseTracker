@@ -81,15 +81,14 @@ func callback(w http.ResponseWriter, r *http.Request) {
 		responseWriter(w, &resp, http.StatusInternalServerError)
 		return
 	}
-	userData, err := json.MarshalIndent(data, "", "  ")
+	userData, err := json.Marshal(data)
 	if err != nil {
 		logger.Warnf(true, "failed to generate user data cookie: %v", err)
 		resp = http.StatusText(http.StatusInternalServerError)
 		responseWriter(w, &resp, http.StatusInternalServerError)
 		return
 	}
-	logger.Infof(false, "user data cookie generated: %v", string(userData))
-	setCallbackCookie(w, r, "user_data", string(userData))
+	setCallbackCookie(w, r, "user_data", base64Encode(string(userData)))
 	http.Redirect(w, r, "/", http.StatusFound)
 }
 
