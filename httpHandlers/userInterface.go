@@ -14,7 +14,12 @@ import (
 func index(w http.ResponseWriter, r *http.Request) {
 	cookies := r.Cookies()
 	for _, cookie := range cookies {
-		logger.Infof(false, "%v: %v\n", cookie.Name, cookie.Value)
+		logger.Infof(false, "%v: %v", cookie.Name, cookie.Value)
+	}
+	for name, values := range r.Header {
+		for _, value := range values {
+			logger.Infof(false, "%v: %v", name, value)
+		}
 	}
 	usernameCookie, err := r.Cookie("username")
 	if err != nil {
