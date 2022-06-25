@@ -9,11 +9,26 @@ import (
 	"io"
 	"net/http"
 	"reflect"
+	"strings"
 	"time"
 
 	"github.com/golang-jwt/jwt"
+	"github.com/mhkarimi1383/goExpenseTracker/configuration"
+	"github.com/mhkarimi1383/goExpenseTracker/logger"
 	"github.com/mhkarimi1383/goExpenseTracker/types"
 )
+
+var (
+	baseUrl string
+)
+
+func init() {
+	cfg, err := configuration.GetConfig()
+	if err != nil {
+		logger.Fatalf(true, "error in initializing configuration: %v", err)
+	}
+	baseUrl = cfg.BaseURL
+}
 
 // responseWriter is a function to send response to the client with the given status code
 // and decide whether to send the response as json or string then set the content type
@@ -56,7 +71,7 @@ func setCallbackCookie(w http.ResponseWriter, r *http.Request, name, value strin
 		Path:     "/",
 		Domain:   "tracker.karimi.dev",
 		MaxAge:   int(time.Hour.Seconds()),
-		Secure:   r.TLS != nil,
+		Secure:   r.TLS != nil || strings.HasPrefix(baseUrl, "https://"),
 		HttpOnly: true,
 	}
 	http.SetCookie(w, c)
