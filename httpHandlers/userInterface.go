@@ -12,16 +12,16 @@ import (
 )
 
 func index(w http.ResponseWriter, r *http.Request) {
-	// cookies := r.Cookies()
-	// for _, cookie := range cookies {
-	// 	logger.Infof(false, "%v: %v\n", cookie.Name, cookie.Value)
-	// }
-	// usernameCookie, err := r.Cookie("username")
-	// if err != nil {
-	// 	http.Redirect(w, r, "/login", http.StatusFound)
-	// 	return
-	// }
-	username := "karimi"
+	cookies := r.Cookies()
+	for _, cookie := range cookies {
+		logger.Infof(false, "%v: %v\n", cookie.Name, cookie.Value)
+	}
+	usernameCookie, err := r.Cookie("username")
+	if err != nil {
+		http.Redirect(w, r, "/login", http.StatusFound)
+		return
+	}
+	username := usernameCookie.Value
 	t, err := template.ParseFiles("templates/index.html.gotmpl")
 	if err != nil {
 		logger.Warnf(true, "error while parsing template: %v", err)
