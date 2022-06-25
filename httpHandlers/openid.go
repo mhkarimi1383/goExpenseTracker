@@ -3,7 +3,6 @@ package httpHandlers
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/coreos/go-oidc/v3/oidc"
@@ -25,7 +24,6 @@ func init() {
 	ctx := context.Background()
 
 	provider, err := oidc.NewProvider(ctx, cfg.OpenIDAddress)
-	fmt.Printf("provider: %+v\n", provider)
 	if err != nil {
 		logger.Fatalf(true, "error in initializing openid provider: %v", err)
 	}

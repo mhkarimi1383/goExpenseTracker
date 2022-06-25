@@ -8,6 +8,7 @@ import (
 	"text/template"
 
 	"github.com/mhkarimi1383/goExpenseTracker/database"
+	"github.com/mhkarimi1383/goExpenseTracker/languageParser"
 	"github.com/mhkarimi1383/goExpenseTracker/logger"
 	"github.com/mhkarimi1383/goExpenseTracker/types"
 )
@@ -62,9 +63,10 @@ func index(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
 		w.WriteHeader(http.StatusOK)
 		t.Execute(w, &types.IndexPage{
-			Title:  information.Title,
-			Amount: amount,
-			Items:  list,
+			Title:    information.Title,
+			Amount:   amount,
+			Items:    list,
+			Language: languageParser.GetSelectedLanguage(),
 		})
 		return
 	} else if r.Method == http.MethodPost {
