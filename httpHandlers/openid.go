@@ -81,7 +81,7 @@ func callback(w http.ResponseWriter, r *http.Request) {
 		responseWriter(w, &resp, http.StatusInternalServerError)
 		return
 	}
-	userData, err := json.Marshal(data)
+	userData, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
 		logger.Warnf(true, "failed to generate user data cookie: %v", err)
 		resp = http.StatusText(http.StatusInternalServerError)
