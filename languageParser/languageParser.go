@@ -22,7 +22,7 @@ var (
 		Description:  "Description",
 		Amount:       "Amount",
 	}
-	languages        *types.TranslateFile
+	languages        types.TranslateFile
 	selectedLanguage string
 )
 
@@ -37,7 +37,7 @@ func init() {
 		logger.Warnf(true, "Error reading translation file: %v, using default language values", err)
 		languages.Languages[0] = defaultLanguage
 	} else {
-		err = yaml.Unmarshal(languageFile, languages)
+		err = yaml.Unmarshal(languageFile, &languages)
 		if err != nil {
 			logger.Warnf(true, "Invalid language file: %v, using default language values", err)
 			languages.Languages[0] = defaultLanguage
