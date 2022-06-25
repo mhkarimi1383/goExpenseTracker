@@ -53,6 +53,8 @@ func setCallbackCookie(w http.ResponseWriter, r *http.Request, name, value strin
 	c := &http.Cookie{
 		Name:     name,
 		Value:    value,
+		Path:     "/",
+		Domain:   "tracker.karimi.dev",
 		MaxAge:   int(time.Hour.Seconds()),
 		Secure:   r.TLS != nil,
 		HttpOnly: true,
