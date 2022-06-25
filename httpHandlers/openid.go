@@ -88,6 +88,7 @@ func callback(w http.ResponseWriter, r *http.Request) {
 		responseWriter(w, &resp, http.StatusInternalServerError)
 		return
 	}
+	logger.Infof(false, "user data cookie generated: %v", string(userData))
 	setCallbackCookie(w, r, "user_data", string(userData))
 	http.Redirect(w, r, "/", http.StatusFound)
 }
