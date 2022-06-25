@@ -54,13 +54,14 @@ func loginHandler() http.Handler {
 
 func callback(w http.ResponseWriter, r *http.Request) {
 	state, err := r.Cookie("state")
+	resp := ""
 	if err != nil {
 		resp := http.StatusText(http.StatusBadRequest) + ": " + "state cookie not set"
 		responseWriter(w, &resp, http.StatusBadRequest)
 		return
 	}
 	if r.URL.Query().Get("state") != state.Value {
-		resp := http.StatusText(http.StatusBadRequest) + ": " + "state cookie not match"
+		resp = http.StatusText(http.StatusBadRequest) + ": " + "state cookie not match"
 		responseWriter(w, &resp, http.StatusBadRequest)
 		return
 	}
@@ -68,14 +69,14 @@ func callback(w http.ResponseWriter, r *http.Request) {
 	oauth2Token, err := oauthConfig.Exchange(ctx, r.URL.Query().Get("code"))
 	if err != nil {
 		logger.Warnf(true, "failed to exchange with provider: %v", err)
-		resp := http.StatusText(http.StatusInternalServerError) + ": " + "failed to exchange with provider"
+		resp = http.StatusText(http.StatusInternalServerError) + ": " + "failed to exchange with provider"
 		responseWriter(w, &resp, http.StatusInternalServerError)
 		return
 	}
 	data, err := ExtractTokenData(oauth2Token.AccessToken)
 	if err != nil {
 		logger.Warnf(true, "failed to extract token: %v", err)
-		resp := http.StatusText(http.StatusInternalServerError)
+		resp = http.StatusText(http.StatusInternalServerError)
 		responseWriter(w, &resp, http.StatusInternalServerError)
 		return
 	}
