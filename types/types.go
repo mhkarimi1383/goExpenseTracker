@@ -13,6 +13,7 @@ type Configuration struct {
 	OpenIDAddress          string `env:"OPENID_ADDRESS" yaml:"openid_address"`
 	OpenIDClientSecret     string `env:"OPENID_CLIENT_SECRET" yaml:"openid_client_secret"`
 	OpenIDClientID         string `env:"OPENID_CLIENT_ID" yaml:"openid_client_id"`
+	Language               string `env:"LANGUAGE" yaml:"language" env-default:"english"`
 	BaseURL                string `env:"BASE_URL" yaml:"base_url" env-default:"http://127.0.0.1:8080"`
 }
 
@@ -41,8 +42,26 @@ type Item struct {
 	Id          uint   `bson:"_id"`
 }
 
+type Language struct {
+	LanguageName string `yaml:"language_name"`
+	Direction    string `yaml:"direction"`
+	CurrencySign string `yaml:"currency_sign"`
+	BalanceTitle string `yaml:"balance_title"`
+	Expense      string `yaml:"expense"`
+	Income       string `yaml:"income"`
+	Add          string `yaml:"add"`
+	Remove       string `yaml:"remove"`
+	Description  string `yaml:"description"`
+	Amount       string `yaml:"amount"`
+}
+
+type TranslateFile struct {
+	Languages []Language `yaml:"languages"`
+}
+
 type IndexPage struct {
-	Title  string `bson:"title"`
-	Amount uint   `bson:"amount"`
-	Items  []Item `bson:"items"`
+	Title    string   `bson:"title"`
+	Amount   uint     `bson:"amount"`
+	Items    []Item   `bson:"items"`
+	Language Language `bson:"language"`
 }

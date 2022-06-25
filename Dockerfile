@@ -20,7 +20,7 @@ RUN chmod +x ./goExpenseTracker
 
 ## copy static files
 COPY templates ./templates
-
+COPY translate.yaml ./translate.yaml
 ## making it non-root user
 RUN adduser -D no-name
 USER no-name:no-name

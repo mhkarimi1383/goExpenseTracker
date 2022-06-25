@@ -13,15 +13,6 @@ import (
 )
 
 func index(w http.ResponseWriter, r *http.Request) {
-	cookies := r.Cookies()
-	for _, cookie := range cookies {
-		logger.Infof(false, "%v: %v", cookie.Name, cookie.Value)
-	}
-	for name, values := range r.Header {
-		for _, value := range values {
-			logger.Infof(false, "%v: %v", name, value)
-		}
-	}
 	userDataCookie, err := r.Cookie("user_data")
 	if err != nil {
 		http.Redirect(w, r, "/login", http.StatusFound)
