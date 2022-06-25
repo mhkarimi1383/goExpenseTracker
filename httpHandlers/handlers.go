@@ -75,13 +75,8 @@ func healthzHandler() http.Handler {
 
 // notFound is a function that returns a not found message when the requested path is not found
 // only for logging purpose
-func notFound(w http.ResponseWriter, _ *http.Request) {
-	const status = http.StatusNotFound
-	w.WriteHeader(status)
-	_, err := fmt.Fprint(w, http.StatusText(status))
-	if err != nil {
-		logger.Warnf(true, "error while sending response %v", err)
-	}
+func notFound(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, "/", http.StatusFound)
 }
 
 // calling notFound function when the requested path is not found
