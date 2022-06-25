@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <div class="mt-5 card bg-dark bg-gradient text-light container-sm w-50 mx-auto">
       {{/* start from here */}}
-      <h2 class="mt-2 mx-auto card-title">{{ .Language.BalanceTitle }} {{ .Amount }} {{ .Language.currency_sign }}</h2>
+      <h2 class="mt-2 mx-auto card-title">{{ .Language.BalanceTitle }} {{ printf "%v%v" .Amount .Language.currency_sign }}</h2>
       <form method="post">
         <div class="form-row">
           <div class="col-auto">
