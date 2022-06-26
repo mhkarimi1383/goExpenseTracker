@@ -65,11 +65,12 @@ func randString(nByte int) (string, error) {
 }
 
 func setCallbackCookie(w http.ResponseWriter, r *http.Request, name, value string) {
+	noHttpBaseURL := strings.TrimPrefix(baseUrl, "http://")
 	c := &http.Cookie{
 		Name:     name,
 		Value:    value,
 		Path:     "/",
-		Domain:   "tracker.karimi.dev",
+		Domain:   strings.TrimPrefix(noHttpBaseURL, "https://"),
 		MaxAge:   int(time.Hour.Seconds()),
 		Secure:   r.TLS != nil || strings.HasPrefix(baseUrl, "https://"),
 		HttpOnly: true,
