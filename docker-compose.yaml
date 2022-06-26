@@ -1,0 +1,17 @@
+version: "3"
+services:
+  go-expense-tracker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:30080:8080"
+      - "127.0.0.1:30090:9090"
+    environment:
+      METRIC_ADDRESS: ${METRIC_ADDRESS}
+      API_ADDRESS: ${API_ADDRESS}
+      MONGODB_CONNECTION_URI: ${MONGODB_CONNECTION_URI}
+      OPENID_ADDRESS: ${OPENID_ADDRESS}
+      OPENID_CLIENT_SECRET: ${OPENID_CLIENT_SECRET}
+      OPENID_CLIENT_ID: ${OPENID_CLIENT_ID}
+      BASE_URL: ${BASE_URL}

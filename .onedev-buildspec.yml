@@ -1,6 +1,6 @@
 version: 16
 jobs:
-- name: build
+- name: Build
   jobExecutor: karimi-hub
   steps:
   - !CheckoutStep
@@ -10,15 +10,15 @@ jobs:
     withSubmodules: false
     condition: ALWAYS
   - !CommandStep
-    name: build and start
+    name: Build and Start
     runInContainer: true
     image: docker/compose
     interpreter: !ShellInterpreter
       shell: sh
       commands:
-      - docker-compose build
-      - docker-compose up -d
-      - docker-compose ps
+      - "@secret:environment_variables@ docker-compose build"
+      - "@secret:environment_variables@ docker-compose up -d"
+      - "@secret:environment_variables@ docker-compose ps"
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
