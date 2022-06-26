@@ -42,26 +42,8 @@ type Item struct {
 	Id          uint   `bson:"_id"`
 }
 
-type Language struct {
-	LanguageName string `yaml:"language_name"`
-	Direction    string `yaml:"direction"`
-	CurrencySign string `yaml:"currency_sign"`
-	BalanceTitle string `yaml:"balance_title"`
-	Expense      string `yaml:"expense"`
-	Income       string `yaml:"income"`
-	Add          string `yaml:"add"`
-	Remove       string `yaml:"remove"`
-	Description  string `yaml:"description"`
-	Amount       string `yaml:"amount"`
-}
-
-type TranslateFile struct {
-	Languages []Language `yaml:"languages"`
-}
-
 type IndexPage struct {
-	Title    string   `bson:"title"`
-	Amount   uint     `bson:"amount"`
-	Items    []Item   `bson:"items"`
-	Language Language `bson:"language"`
+	Title  string `bson:"title"`
+	Amount uint   `bson:"amount"`
+	Items  []Item `bson:"items"`
 }
