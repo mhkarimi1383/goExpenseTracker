@@ -1,4 +1,4 @@
-# Go Simple API Project
+# Go Expense Tracker
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/mhkarimi1383/goExpenseTracker.svg)](https://pkg.go.dev/github.com/mhkarimi1383/goExpenseTracker)
 [![Go Report Card](https://goreportcard.com/badge/github.com/mhkarimi1383/goExpenseTracker)](https://goreportcard.com/report/github.com/mhkarimi1383/goExpenseTracker)
