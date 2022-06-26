@@ -11,6 +11,20 @@
     <div class="mt-5 card bg-dark bg-gradient text-light container-sm w-50 mx-auto">
       {{/* start from here */}}
       <h2 class="mt-2 mx-auto card-title">Your Balance: {{ .Amount }}$</h2>
+      <table class="table table-borderless table-sm align-middle table-responsive">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Income</th>
+            <th scope="col">Expense</th>
+          </tr>
+            </thead>
+            <tbody>
+          <tr>
+            <td class="table-success">{{ .TotalIncome }}$</td>
+            <td class="table-danger">{{ .TotalExpense }}$</td>
+          </tr>
+        </tbody>
+      </table>
       <form method="post">
         <div class="form-row">
           <div class="col-auto">

@@ -43,7 +43,9 @@ type Item struct {
 }
 
 type IndexPage struct {
-	Title  string `bson:"title"`
-	Amount uint   `bson:"amount"`
-	Items  []Item `bson:"items"`
+	Title        string `bson:"title"`
+	Amount       uint   `bson:"amount"`
+	TotalIncome  uint   `bson:"total_income"`
+	TotalExpense uint   `bson:"total_expense"`
+	Items        []Item `bson:"items"`
 }

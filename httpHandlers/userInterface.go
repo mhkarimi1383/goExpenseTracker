@@ -49,11 +49,15 @@ func index(w http.ResponseWriter, r *http.Request) {
 	}
 	amount := uint(0)
 	lastId := uint(0)
+	totalIncome := uint(0)
+	totalExpense := uint(0)
 	for _, item := range list {
 		if item.Operator == "+" {
 			amount += item.Amount
+			totalIncome += item.Amount
 		} else {
 			amount -= item.Amount
+			totalExpense += item.Amount
 		}
 		if item.Id > lastId {
 			lastId = item.Id
@@ -62,9 +66,11 @@ func index(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
 		w.WriteHeader(http.StatusOK)
 		t.Execute(w, &types.IndexPage{
-			Title:  information.Title,
-			Amount: amount,
-			Items:  list,
+			Title:        information.Title,
+			Amount:       amount,
+			Items:        list,
+			TotalIncome:  totalIncome,
+			TotalExpense: totalExpense,
 		})
 		return
 	} else if r.Method == http.MethodPost {
