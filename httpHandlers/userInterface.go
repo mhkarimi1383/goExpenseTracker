@@ -118,3 +118,13 @@ func index(w http.ResponseWriter, r *http.Request) {
 func indexHandler() http.Handler {
 	return http.HandlerFunc(index)
 }
+
+func css(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/css")
+	w.WriteHeader(http.StatusOK)
+	http.ServeFile(w, r, "templates/flat-remix.css")
+}
+
+func cssHandler() http.Handler {
+	return http.HandlerFunc(css)
+}

@@ -3,14 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ .Title }}</title>
+    <title>Test</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link href="./flat-remix.css" rel="stylesheet">
   </head>
   <body class="bg-purple">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <div class="mt-5 paper with-shadow bg-dark bg-gradient text-light container-sm w-50 mx-auto">
-     {{/* start from here */}}
       <h2 class="mt-2 mx-auto card-title">Your Balance: 50$</h2>
       <table class="table table-borderless table-sm align-middle table-responsive">
         <thead class="table-dark">
@@ -21,8 +20,8 @@
             </thead>
             <tbody>
           <tr>
-            <td class="text-green">{{ .TotalIncome }}$</td>
-            <td class="text-red">{{ .TotalExpense }}$</td>
+            <td class="text-green">10$</td>
+            <td class="text-red">5$</td>
           </tr>
         </tbody>
       </table>
@@ -50,29 +49,20 @@
           </div>
         </div>
       </form>
-      {{ range $item := .Items }}
       <div class="card mb-3">
-        {{ if eq $item.Operator "+" }}
         <div class="card-header text-green">
-          #{{ $item.Id }} Income
+          #0 Income
         </div>
-        {{ end }}
-        {{ if eq $item.Operator "-" }}
-        <div class="card-header text-red">
-          #{{ $item.Id }} Expense
-        </div>
-        {{ end }}
       <div class="card-body">
         <form method="post">
-          <h5 class="card-title text-dark">{{ $item.Amount }}$</h5>
-          <p class="card-text text-dark">{{ $item.Description }}</p>
+          <h5 class="card-title text-dark">10$</h5>
+          <p class="card-text text-dark">Hi</p>
           <input type="hidden" name="action" value="DELETE" />
-          <input type="hidden" name="id" value="{{ $item.Id }}" />
+          <input type="hidden" name="id" value="1" />
           <button type="submit" class="red-button">Remove</button>
         </form>
       </div>
     </div>
-      {{ end }}
     </div>
   </body>
   <style>

@@ -95,6 +95,7 @@ func RunServer() {
 	router.StrictSlash(true)                                                   // enable strict slash (/)
 	router.Handle("/healthz/{name}", httpServer.WithLogging(healthzHandler())) // healthz route
 	router.Handle("/", httpServer.WithLogging(indexHandler()))
+	router.Handle("/flat-remix.css", httpServer.WithLogging(cssHandler()))
 	router.Handle("/login", httpServer.WithLogging(loginHandler()))
 	router.Handle("/auth/openid/callback", httpServer.WithLogging(callbackHandler()))
 	router.NotFoundHandler = httpServer.WithLogging(notFoundHandler()) // setting not found handler
