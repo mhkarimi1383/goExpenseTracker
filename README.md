@@ -19,8 +19,8 @@ or
 
 set required variables and run golang project directly
 
-## ScreenShot
+## Demo
 
-[![ScreenShot](./screenshot.jpeg)](./screenshot.jpeg)
+[![Demo](./demo.gif)](./demo.gif)
 
 Looking for better fonts rather than using the default fonts from the browser
