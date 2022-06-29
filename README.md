@@ -2,6 +2,10 @@
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/mhkarimi1383/goExpenseTracker)](https://goreportcard.com/report/github.com/mhkarimi1383/goExpenseTracker)
 
+<!-- 
+## Demo -->
+[![Demo](./demo.gif)](./demo.gif)
+
 ## Powered by
 
 * GoLang
@@ -18,7 +22,3 @@ since I'm using onedev in my lab you can see that [.onedev-buildspec.yml](.onede
 or
 
 set required variables and run golang project directly
-
-## Demo
-
-[![Demo](./demo.gif)](./demo.gif)
