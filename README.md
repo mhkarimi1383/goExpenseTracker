@@ -13,6 +13,7 @@
 * OpenIDConnect (like Keycloak or Google)
 * MongoDB
 * Bootstrap
+* Flat Remix CSS
 * Based on [goAPIBaseProject](https://github.com/mhkarimi1383/goAPIBaseProject)
 
 ## How to bring it up?
