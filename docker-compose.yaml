@@ -15,3 +15,4 @@ services:
       OPENID_CLIENT_SECRET: ${OPENID_CLIENT_SECRET}
       OPENID_CLIENT_ID: ${OPENID_CLIENT_ID}
       BASE_URL: ${BASE_URL}
+      OPENID_USERNAME_KEY: preffered_username

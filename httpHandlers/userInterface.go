@@ -10,6 +10,7 @@ import (
 	"github.com/mhkarimi1383/goExpenseTracker/database"
 	"github.com/mhkarimi1383/goExpenseTracker/logger"
 	"github.com/mhkarimi1383/goExpenseTracker/types"
+	"github.com/mhkarimi1383/goExpenseTracker/validator"
 )
 
 func index(w http.ResponseWriter, r *http.Request) {
@@ -33,7 +34,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 		responseWriter(w, &resp, http.StatusInternalServerError)
 		return
 	}
-	username := fmt.Sprintf("%v", userData["preferred_username"])
+	username := fmt.Sprintf("%v", userData[openIDUsernameKey])
 	t, err := template.ParseFiles("templates/index.html.gotmpl")
 	if err != nil {
 		logger.Warnf(true, "error while parsing template: %v", err)
@@ -77,6 +78,12 @@ func index(w http.ResponseWriter, r *http.Request) {
 		if r.FormValue("action") == "CREATE" {
 			amountStr := r.FormValue("amount")
 			amount, err := strconv.Atoi(amountStr)
+			err = validator.Var(amount, "required,gt=0")
+			if err != nil {
+				resp := http.StatusText(http.StatusBadRequest) + ": Amount cannot be zero or negative"
+				responseWriter(w, &resp, http.StatusBadRequest)
+				return
+			}
 			if err != nil {
 				logger.Warnf(true, "Error converting amount to number: %v", err)
 				resp := http.StatusText(http.StatusBadRequest)

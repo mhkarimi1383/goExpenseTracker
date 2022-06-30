@@ -25,7 +25,8 @@ var (
 	// global variable to store metric address
 	metricAddress string
 	// global variable to store the info of the application
-	information types.ApplicationInformation
+	information       types.ApplicationInformation
+	openIDUsernameKey string
 )
 
 // store needed variables from configuration at first import
@@ -38,6 +39,7 @@ func init() {
 	metricAddress = cfg.MetricAddress
 	information.Title = cfg.ApplicationTitle
 	information.Description = cfg.ApplicationDescription
+	openIDUsernameKey = cfg.OpenIDUsernameKey
 }
 
 // healthz is a function that returns a health-check (usually needed for Kubernetes/Docker) message to check if the server is running

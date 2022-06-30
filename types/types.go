@@ -13,6 +13,7 @@ type Configuration struct {
 	OpenIDAddress          string `env:"OPENID_ADDRESS" yaml:"openid_address"`
 	OpenIDClientSecret     string `env:"OPENID_CLIENT_SECRET" yaml:"openid_client_secret"`
 	OpenIDClientID         string `env:"OPENID_CLIENT_ID" yaml:"openid_client_id"`
+	OpenIDUsernameKey      string `env:"OPENID_USERNAME_KEY" yaml:"openid_username_key" env-default:"preferred_username"`
 	BaseURL                string `env:"BASE_URL" yaml:"base_url" env-default:"http://127.0.0.1:8080"`
 }
 
