@@ -41,6 +41,6 @@ APPLICATION_DESCRIPTION | application_description | Description of application (
 MONGODB_CONNECTION_URI | mongodb_connection_uri | URI for MongoDB connection | -
 OPENID_ADDRESS | openid_address | Endpoint of OpenID Provider | -
 OPENID_CLIENT_SECRET | openid_client_secret | Secret from OpenID Connect Provider | -
-OPENID_CLIENT_ID | openid_client_id | -
+OPENID_CLIENT_ID | openid_client_id | ID for OpenID Connect Provider Client | -
 OPENID_USERNAME_KEY | openid_username_key | Unique Key from OpenID Connect Provider to use as username (refer to provider documentation about jwt Token Spec) | preferred_username
 BASE_URL | base_url | Base URL for application with protocol (`http` or `https` and no trailing slash [`/`]) | `http://127.0.0.1:8080`
