@@ -31,8 +31,9 @@ jobs:
   - !CheckoutStep
     name: Checkout
     cloneCredential: !DefaultCredential {}
-    withLfs: false
+    withLfs: true
     withSubmodules: false
+    checkoutPath: '@project_path@'
     condition: ALWAYS
   - !CommandStep
     name: Build and Start
