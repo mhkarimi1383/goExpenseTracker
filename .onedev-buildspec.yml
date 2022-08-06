@@ -10,9 +10,15 @@ jobs:
     withLfs: true
     force: false
     condition: ALWAYS
+  - !CheckoutStep
+    name: Checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: true
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
   - !ScheduleTrigger
-    cronExpression: '0 * * * * ?'
+    cronExpression: 0 * * * * ?
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
