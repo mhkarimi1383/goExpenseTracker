@@ -42,9 +42,9 @@ jobs:
     interpreter: !ShellInterpreter
       shell: sh
       commands:
-      - '@secret:environment_variables@ docker-compose build'
-      - '@secret:environment_variables@ docker-compose up -d'
-      - '@secret:environment_variables@ docker-compose ps'
+      - '@secret:environment_variables@ docker-compose -f "@project_name@/docker-compose.yaml" build'
+      - '@secret:environment_variables@ docker-compose -f "@project_name@/docker-compose.yaml" up -d'
+      - '@secret:environment_variables@ docker-compose -f "@project_name@/docker-compose.yaml" ps'
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
