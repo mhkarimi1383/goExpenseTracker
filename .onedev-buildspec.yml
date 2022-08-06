@@ -12,7 +12,7 @@ jobs:
     condition: ALWAYS
   triggers:
   - !ScheduleTrigger
-    cronExpression: '* * * * * ?'
+    cronExpression: '0 * * * * ?'
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
