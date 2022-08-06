@@ -3,18 +3,18 @@ jobs:
 - name: Update OneDev
   jobExecutor: karimi-hub
   steps:
+  - !CheckoutStep
+    name: Checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: true
+    withSubmodules: false
+    condition: ALWAYS
   - !PullRepository
     name: GitHub
     remoteUrl: https://github.com/mhkarimi1383/goExpenseTracker.git
     refs: refs/heads/* refs/tags/*
     withLfs: true
     force: false
-    condition: ALWAYS
-  - !CheckoutStep
-    name: Checkout
-    cloneCredential: !DefaultCredential {}
-    withLfs: true
-    withSubmodules: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
   - !ScheduleTrigger
