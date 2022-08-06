@@ -1,5 +1,24 @@
-version: 16
+version: 17
 jobs:
+- name: Update OneDev
+  jobExecutor: karimi-hub
+  steps:
+  - !PullRepository
+    name: GitHub
+    remoteUrl: https://github.com/mhkarimi1383/goExpenseTracker.git
+    refs: refs/heads/* refs/tags/*
+    withLfs: true
+    force: false
+    condition: ALWAYS
+  triggers:
+  - !ScheduleTrigger
+    cronExpression: '* * * * * ?'
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  cpuRequirement: 250
+  memoryRequirement: 256
+  timeout: 3600
 - name: Build
   jobExecutor: karimi-hub
   steps:
@@ -16,9 +35,9 @@ jobs:
     interpreter: !ShellInterpreter
       shell: sh
       commands:
-      - "@secret:environment_variables@ docker-compose build"
-      - "@secret:environment_variables@ docker-compose up -d"
-      - "@secret:environment_variables@ docker-compose ps"
+      - '@secret:environment_variables@ docker-compose build'
+      - '@secret:environment_variables@ docker-compose up -d'
+      - '@secret:environment_variables@ docker-compose ps'
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
